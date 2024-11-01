@@ -1,0 +1,12 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Game-Score-Management-System/backend
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Game-Score-Management-System/frontend
+[submodule "users-microservice"]
+	path = users-microservice
+	url = https://github.com/Game-Score-Management-System/users-microservice
+[submodule "scores-microservice"]
+	path = scores-microservice
+	url = https://github.com/Game-Score-Management-System/scores-microservice

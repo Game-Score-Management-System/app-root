@@ -1,0 +1,68 @@
+services:
+  client-gateway:
+    build:
+      context: ./client-gateway
+    container_name: client-gateway
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./backend/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=8080
+      - JWT_SECRET=tgeZnTJvzxZIckEhCj0pZeiSshiVlhpWyET0fGdj
+      - USERS_SERVICE_URL = http://users-ms:50051
+      - SCORES_SERVICE_URL = http://scores-ms:50052
+
+  users-ms:
+    ports:
+      - '50051:50051'
+    build: ./users-microservice
+    volumes:
+      - ./users-microservice/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=50051
+    depends_on:
+      - users-db
+
+  scores-ms:
+    ports:
+      - '50052:50052'
+    build: ./scores-microservice
+    volumes:
+      - ./scores-microservice/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=50052
+    depends_on:
+      - scores-db
+
+  users-db:
+    container_name: users-db
+    image: postgres:16.2
+    restart: always
+    volumes:
+      - data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=usersdb
+
+  scores-db:
+    container_name: scores-db
+    image: mongo:latest
+    restart: always
+    volumes:
+      - data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+      - MONGO_INITDB_DATABASE=scoresdb
+
+volumes:
+  data:
