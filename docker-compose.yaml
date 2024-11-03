@@ -1,7 +1,7 @@
 services:
   client-gateway:
     build:
-      context: ./client-gateway
+      context: ./backend
     container_name: client-gateway
     ports:
       - '8080:8080'
@@ -13,6 +13,12 @@ services:
       - JWT_SECRET=tgeZnTJvzxZIckEhCj0pZeiSshiVlhpWyET0fGdj
       - USERS_SERVICE_URL = http://users-ms:50051
       - SCORES_SERVICE_URL = http://scores-ms:50052
+    networks:
+      - app-score-network
+    depends_on:
+      - users-ms
+      - scores-ms
+      - redis
 
   users-ms:
     ports:
@@ -25,6 +31,8 @@ services:
       - PORT=50051
     depends_on:
       - users-db
+    networks:
+      - app-score-network
 
   scores-ms:
     ports:
@@ -37,32 +45,53 @@ services:
       - PORT=50052
     depends_on:
       - scores-db
+    networks:
+      - app-score-network
 
   users-db:
     container_name: users-db
-    image: postgres:16.2
+    image: postgres:16.4
     restart: always
     volumes:
-      - data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
       - POSTGRES_DB=usersdb
+    networks:
+      - app-score-network
 
   scores-db:
     container_name: scores-db
     image: mongo:latest
+    command:
+      - '--logpath'
+      - '/var/log/mongodb/mongod.log'
     restart: always
     volumes:
-      - data:/data/db
+      - mongo-data:/data/db
     ports:
       - 27017:27017
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=123456
+      - MONGO_INITDB_ROOT_PASSWORD=root
       - MONGO_INITDB_DATABASE=scoresdb
+    networks:
+      - app-score-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - app-score-network
 
 volumes:
-  data:
+  postgres-data:
+  mongo-data:
+
+networks:
+  app-score-network:
+    driver: bridge
