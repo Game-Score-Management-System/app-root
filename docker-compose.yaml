@@ -11,8 +11,7 @@ services:
     environment:
       - PORT=8080
       - JWT_SECRET=tgeZnTJvzxZIckEhCj0pZeiSshiVlhpWyET0fGdj
-      - USERS_SERVICE_URL = http://users-ms:50051
-      - SCORES_SERVICE_URL = http://scores-ms:50052
+      - JWT_EXPIRATION = 3600
     networks:
       - app-score-network
     depends_on:
