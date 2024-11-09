@@ -11,7 +11,8 @@ services:
     environment:
       - PORT=8080
       - JWT_SECRET=tgeZnTJvzxZIckEhCj0pZeiSshiVlhpWyET0fGdj
-      - JWT_EXPIRATION = 3600
+      - JWT_EXPIRATION=3600
+      - REDIS_URL=redis://localhost:6379
     networks:
       - app-score-network
     depends_on:
@@ -28,6 +29,7 @@ services:
     command: npm run start:dev
     environment:
       - PORT=50051
+      - DATABASE_URL=postgresql://postgres:123456@localhost:5432/usersdb?schema=public
     depends_on:
       - users-db
     networks:
@@ -42,6 +44,7 @@ services:
     command: npm run start:dev
     environment:
       - PORT=50052
+      - MONGO_URI=mongodb://bootcamp:bootcamp@localhost:27017/scoresdb
     depends_on:
       - scores-db
     networks:
