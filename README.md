@@ -55,8 +55,7 @@ Para actualizar los microservicios, obtén los últimos cambios del repositorio 
 ```sh
 git pull
 git submodule update --remote --merge
-docker-compose build
-docker-compose up
+docker-compose up -d --build
 ```
 
 Para más información detallada, consulta la documentación individual de cada microservicio.
