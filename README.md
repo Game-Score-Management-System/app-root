@@ -2,6 +2,12 @@
 
 Game Score Manager es una plataforma web desarrollada en una arquitectura **fullstack** para gestionar las puntuaciones de jugadores de un videojuego en línea. Permite que los jugadores se registren, inicien sesión, y visualicen sus puntuaciones y clasificaciones globales en tiempo real. Los administradores pueden gestionar usuarios y puntuaciones a través de un panel dedicado.
 
+![image](https://github.com/user-attachments/assets/71c7303b-5957-40fd-95fe-2aa458bc483d)
+![image](https://github.com/user-attachments/assets/7a4553c1-5254-49aa-90a4-47f861fbfad3)
+![image](https://github.com/user-attachments/assets/631c171f-2bc7-4435-bf96-95fdb4abfa93)
+![image](https://github.com/user-attachments/assets/9650fb8d-863a-4e53-a9c7-a4c6b76e478b)
+![image](https://github.com/user-attachments/assets/cf64ffb6-7f4c-47ab-b528-794489d6aeb9)
+
 ## 📝 Descripción
 
 Esta aplicación está construida con un enfoque de microservicios para maximizar la escalabilidad y el rendimiento. Utiliza **Next.js 14** en el frontend para aprovechar su SSR y funcionalidades de última generación, y **NestJS** en el backend junto con **gRPC** para comunicaciones rápidas y seguras entre servicios.
