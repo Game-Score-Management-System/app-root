@@ -37,7 +37,7 @@ Asegúrate de tener Docker y Docker Compose instalados en tu máquina.
 Para iniciar todos los microservicios, navega al directorio raíz y ejecuta:
 
 ```sh
-docker-compose up -d
+docker-compose up -d --build
 ```
 
 ### Deteniendo Microservicios
